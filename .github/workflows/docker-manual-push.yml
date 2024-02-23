@@ -27,7 +27,6 @@ jobs:
       - name: Prepare
         id: prep
         run: |
-#          DOCKERHUB_IMAGE=${{ env.IMAGE_NAME }}
           DOCKERHUB_IMAGE="s3fs"
           LATESTTAG=$(git describe --abbrev=0 --tags)
           VERSION=${LATESTTAG#v}
