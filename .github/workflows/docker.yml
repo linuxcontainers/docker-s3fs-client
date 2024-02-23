@@ -24,13 +24,13 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.GHCR_TOKEN }}
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       -
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v4
         with:
           driver-opts: image=moby/buildkit:master
       -
@@ -59,22 +59,21 @@ jobs:
         uses: docker/setup-qemu-action@v2
       -
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v4
         with:
           driver-opts: image=moby/buildkit:master
       -
         name: Build Docker Hub images
         env:
-          DOCKER_REPO: docker.io/efrecon/s3fs
+          DOCKER_REPO: docker.io/linuxcontainers/s3fs
           SOURCE_COMMIT: ${{ github.sha }}
         run: ./hooks/build
       -
-        # Note: This uses the password, not the token as this action would
-        # otherwise not work.
+        # Note: This uses the password or token
         name: Update repo description at Docker Hub
         uses: peter-evans/dockerhub-description@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          repository: efrecon/s3fs
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: linuxcontainers/s3fs
           short-description: Mount S3 buckets from within a container and expose them to host/containers

@@ -2,7 +2,7 @@
 
 # Set good defaults to allow script to be run by hand. The two variables below
 # will never be used when run from within the Docker hub.
-DOCKER_REPO=${DOCKER_REPO:-"efrecon/s3fs"}
+DOCKER_REPO=${DOCKER_REPO:-"linuxcontainers/s3fs"}
 SOURCE_COMMIT=${SOURCE_COMMIT:-$(git log --no-decorate|grep '^commit'|head -n 1| awk '{print $2}')}
 
 # shellcheck disable=SC1091
@@ -44,7 +44,8 @@ for version in $VERSIONS; do
             # library image.
             if [ "$revision" != "$SOURCE_COMMIT" ]; then
                 echo "======================= Building ${DOCKER_REPO}:$tag"
-                docker buildx build --platform linux/arm64,linux/amd64,linux/arm/v7 --push \
+#                docker buildx build --platform linux/arm64,linux/amd64,linux/arm/v7 --push \
+                docker buildx build --platform linux/amd64 --push \
                     --build-arg S3FS_VERSION="$version" \
                     --tag "${DOCKER_REPO}:$tag" \
                     --label "org.opencontainers.image.revision=$SOURCE_COMMIT" \
