@@ -9,8 +9,8 @@ will make the content of the bucket available to processes, but also all other
 containers on the host. The image automatically unmount the remote bucket on
 container termination.
 
-  [image]: https://hub.docker.com/r/efrecon/s3fs
-  [project]: https://github.com/efrecon/docker-s3fs-client
+  [image]: https://hub.docker.com/r/linuxcontainers/s3fs
+  [project]: https://github.com/linuxcontainers/docker-s3fs-client
   [s3fs]: https://github.com/s3fs-fuse/s3fs-fuse
   [volume]: https://docs.docker.com/storage/
 
@@ -22,10 +22,10 @@ automatically built using a github [workflow] and pushed to both the Docker
 [Hub][image] and to the [GHCR]. Detection of new releases happens once every
 day.
 
-  [tags]: https://cloud.docker.com/repository/docker/efrecon/s3fs/tags
+  [tags]: https://cloud.docker.com/repository/docker/linuxcontainers/s3fs/tags
   [rebuilding]: ./hooks/build
   [workflow]: ./.github/workflows/docker.yml
-  [GHCR]: https://github.com/efrecon/docker-s3fs-client/pkgs/container/s3fs
+  [GHCR]: https://github.com/linuxcontainers/docker-s3fs-client/pkgs/container/s3fs
 
 ## Example
 
@@ -45,7 +45,7 @@ docker run -it --rm \
     --env UID=$(id -u) \
     --env GID=$(id -g) \
     -v /mnt/tmp:/opt/s3fs/bucket:rshared \
-    efrecon/s3fs
+    linuxcontainers/s3fs
 ```
 
 The `--device`, `--cap-add` and `--security-opt` options and their values are to
@@ -54,7 +54,7 @@ using FUSE. `rshared` is what ensures that bind mounting makes the files and
 directories available back to the host and recursively to other containers.
 
 Note that there are reports of mount propagation not working with the compose
-plugin. See [#42](https://github.com/efrecon/docker-s3fs-client/issues/42).
+plugin. See [#42](https://github.com/linuxcontainers/docker-s3fs-client/issues/42).
 Reverting to standalone `docker-compose` seems to work.
 
 ## Container Options
@@ -130,8 +130,8 @@ them. The image itself builds upon [alpine] and it will pick the latest Alpine
 with major version number `3` at the time of the build. There is no release for
 version 1.87 as it contains a regression that was [fixed] after the release.
 
-  [image]: https://cloud.docker.com/repository/docker/efrecon/s3fs
-  [tags]: https://cloud.docker.com/repository/docker/efrecon/s3fs/tags
+  [image]: https://cloud.docker.com/repository/docker/linuxcontainers/s3fs
+  [tags]: https://cloud.docker.com/repository/docker/linuxcontainers/s3fs/tags
   [versions]: https://github.com/s3fs-fuse/s3fs-fuse/tags
   [alpine]: https://hub.docker.com/_/alpine
   [fixed]: https://github.com/s3fs-fuse/s3fs-fuse/pull/1365

@@ -1,7 +1,7 @@
-ARG ALPINE_VERSION=3.18.3
+ARG ALPINE_VERSION=3.19
 FROM alpine:$ALPINE_VERSION AS build
 
-ARG S3FS_VERSION=v1.91
+ARG S3FS_VERSION=v1.93
 
 RUN apk --no-cache add \
     ca-certificates \
@@ -26,13 +26,13 @@ RUN apk --no-cache add \
 FROM alpine:$ALPINE_VERSION
 
 # Metadata
-LABEL MAINTAINER=efrecon+github@gmail.com
-LABEL org.opencontainers.image.title="efrecon/s3fs"
+LABEL MAINTAINER=peter@linuxcontainers.dev
+LABEL org.opencontainers.image.title="linuxcontainers/docker-s3fs-client"
 LABEL org.opencontainers.image.description="Mount S3 buckets from within a container and expose them to host/containers"
-LABEL org.opencontainers.image.authors="Emmanuel Frécon <efrecon+github@gmail.com>"
-LABEL org.opencontainers.image.url="https://github.com/efrecon/docker-s3fs-client"
-LABEL org.opencontainers.image.documentation="https://github.com/efrecon/docker-s3fs-client/README.md"
-LABEL org.opencontainers.image.source="https://github.com/efrecon/docker-s3fs-client/Dockerfile"
+LABEL org.opencontainers.image.authors="Peter <peter@linuxcontainers.dev>"
+LABEL org.opencontainers.image.url="https://github.com/linuxcontainers/docker-s3fs-client"
+LABEL org.opencontainers.image.documentation="https://github.com/linuxcontainers/docker-s3fs-client/README.md"
+LABEL org.opencontainers.image.source="https://github.com/linuxcontainers/docker-s3fs-client/Dockerfile"
 
 COPY --from=build /usr/bin/s3fs /usr/bin/s3fs
 
