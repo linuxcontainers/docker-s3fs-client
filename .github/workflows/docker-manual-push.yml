@@ -27,7 +27,7 @@ jobs:
       - name: Prepare
         id: prep
         run: |
-          DOCKERHUB_IMAGE="s3fs"
+          DOCKERHUB_IMAGE="linuxcontainers/s3fs"
           LATESTTAG=$(git describe --abbrev=0 --tags)
           VERSION=${LATESTTAG#v}
           MINOR=${VERSION%.*}
